@@ -1,12 +1,13 @@
 ----------------------------
 --usuwamy poprzednie tabele
 ----------------------------
-begin
-  for i in (select 'drop table '||table_name||' cascade constraints' tbl from user_tables) 
-  loop
-     execute immediate i.tbl;
-  end loop;
-end;
+--begin
+--  for i in (select 'drop table '||table_name||' cascade constraints' tbl from user_tables) 
+--  loop
+--     execute immediate i.tbl;-
+
+--  end loop;
+--end;
 
 --DROP TABLE Dzial CASCADE CONSTRAINTS;
 --DROP TABLE Towar  CASCADE CONSTRAINTS;
@@ -52,9 +53,9 @@ CREATE TABLE Opinia
   (
     id       NUMBER(7) PRIMARY KEY,
     Ocena    NUMBER(1),
-    Imie     VARCHAR(25),
-    Nazwisko VARCHAR(25),
-    Tresc    VARCHAR(25)
+    Imie     VARCHAR2(25),
+    Nazwisko VARCHAR2(25),
+    Tresc    VARCHAR2(25)
   );
   
 CREATE TABLE Log
@@ -70,9 +71,14 @@ ALTER TABLE Pracownik ADD CONSTRAINT fk_pracownik FOREIGN KEY (dzial) REFERENCES
 ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja FOREIGN KEY (towar) REFERENCES towar(id);
 ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja_1 FOREIGN KEY (Sprzedawca) REFERENCES Pracownik(id);
 
-INSERT INTO Dzial VALUES(1,"Chemia domowa",1 );
 INSERT INTO TOWAR VALUES  (1, 'CD', 1, 2, 1, 2  );
 INSERT INTO Pracownik VALUES  (2, 'Janusz', 'Nowak', 2, 2000  );
+INSERT INTO Dzial VALUES(1,'Chemia domowa',1 );
+
 INSERT INTO transakcja VALUES  (1, 1, 199.9999, 2, 2, 1);
 INSERT INTO opinia VALUES  (1, 5, "Andrey", "Kalishek", "Bardzo super sklep");
+
+
+
+
 
