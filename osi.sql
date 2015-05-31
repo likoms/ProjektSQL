@@ -13,7 +13,8 @@
 --DROP TABLE Towar  CASCADE CONSTRAINTS;
 --DROP TABLE Pracownik CASCADE CONSTRAINTS;
 --DROP TABLE Transakcja CASCADE CONSTRAINTS;
---DROP TABLE Opinie CASCADE CONSTRAINTS;
+--DROP TABLE Opinie CASCADE CONSTRAINTS; 
+--Drop table Log CASCADE CONSTRAINTS;
 
 CREATE TABLE Dzial
   (
@@ -60,10 +61,11 @@ CREATE TABLE Opinia
     Tresc    VARCHAR2(50)
   );
   
+
 CREATE TABLE Log
   ( 
   Data DATE, 
-  ID_triggera NUMBER(7)
+  wiadomosc VARCHAR2(50)
   );  
   
 --inserty
@@ -117,6 +119,24 @@ ALTER TABLE Pracownik ADD CONSTRAINT fk_pracownik FOREIGN KEY (dzial) REFERENCES
 ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja FOREIGN KEY (towar) REFERENCES towar(idT);
 ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja_1 FOREIGN KEY (Sprzedawca) REFERENCES Pracownik(idP);
 
+CREATE OR REPLACE  TRIGGER trigger_towar
+BEFORE INSERT OR UPDATE
+  ON TOWAR
+FOR EACH ROW
+BEGIN
+if(inserting)
+then
+INSERT INTO LOG
+VALUES
+(SYSDATE,'dowano nowy towar');
+end if;
+if(updating)
+then
+  INSERT INTO LOG
+  VALUES
+  (SYSDATE,'aktualizacja danych towaru');
+end if;
+end;
 
 
 
