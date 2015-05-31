@@ -17,13 +17,15 @@
 
 CREATE TABLE Dzial
   (
-    id        NUMBER(7) PRIMARY KEY ,
+    idD        NUMBER(7) PRIMARY KEY ,
     Nazwa     VARCHAR2(25),
     Kierownik NUMBER(7)
   );
+  
+  
 CREATE TABLE Towar
   (
-    id    NUMBER(7) PRIMARY KEY ,
+    idT    NUMBER(7) PRIMARY KEY ,
     Nazwa VARCHAR2(25),
     Dzial NUMBER(7),
     Cena FLOAT(7),
@@ -32,7 +34,7 @@ CREATE TABLE Towar
   );
 CREATE TABLE Pracownik
   (
-    id       NUMBER(7) PRIMARY KEY ,
+    idP       NUMBER(7) PRIMARY KEY ,
     Imie     VARCHAR2(25),
     Nazwisko VARCHAR2(25),
     Dzial    NUMBER(7),
@@ -40,7 +42,7 @@ CREATE TABLE Pracownik
   );
 CREATE TABLE Transakcja
   (
-    id    NUMBER(7) PRIMARY KEY ,
+    idTra    NUMBER(7) PRIMARY KEY ,
     Towar NUMBER(7),
     cena_jednostkowa FLOAT(7),
     Ilosc NUMBER(7),
@@ -51,11 +53,11 @@ CREATE TABLE Transakcja
 
 CREATE TABLE Opinia
   (
-    id       NUMBER(7) PRIMARY KEY,
+    idO       NUMBER(7) PRIMARY KEY,
     Ocena    NUMBER(1),
     Imie     VARCHAR2(25),
     Nazwisko VARCHAR2(25),
-    Tresc    VARCHAR2(25)
+    Tresc    VARCHAR2(50)
   );
   
 CREATE TABLE Log
@@ -64,19 +66,61 @@ CREATE TABLE Log
   ID_triggera NUMBER(7)
   );  
   
-ALTER TABLE Dzial ADD CONSTRAINT fk_dzial FOREIGN KEY (Kierownik) REFERENCES Pracownik(id) ;
-ALTER TABLE Towar ADD CONSTRAINT fk_towar FOREIGN KEY (dzial) REFERENCES dzial(id) ;
-ALTER TABLE Towar ADD CONSTRAINT fk_towar2 FOREIGN KEY (opinia) REFERENCES opinia(id) ;
-ALTER TABLE Pracownik ADD CONSTRAINT fk_pracownik FOREIGN KEY (dzial) REFERENCES dzial(id) ;
-ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja FOREIGN KEY (towar) REFERENCES towar(id);
-ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja_1 FOREIGN KEY (Sprzedawca) REFERENCES Pracownik(id);
-
-INSERT INTO TOWAR VALUES  (1, 'CD', 1, 2, 1, 2  );
-INSERT INTO Pracownik VALUES  (2, 'Janusz', 'Nowak', 2, 2000  );
+--inserty
 INSERT INTO Dzial VALUES(1,'Chemia domowa',1 );
+INSERT INTO Dzial VALUES(2,'Chemia gospodarcza',1 );
+INSERT INTO Dzial VALUES(3,'Bielizna',1 );
+INSERT INTO Dzial VALUES(4,'Leki',1 );
+INSERT INTO Dzial VALUES(5,'Artykuly dla zwierzat',1 );
+INSERT INTO Dzial VALUES(6,'Papierosy i Alkohol',1 );
 
-INSERT INTO transakcja VALUES  (1, 1, 199.9999, 2, 2, 1);
-INSERT INTO opinia VALUES  (1, 5, "Andrey", "Kalishek", "Bardzo super sklep");
+ --TOWAR(idT  Nazwa  Dzial   Cena   Opinia   Ilosc)  
+
+INSERT INTO TOWAR VALUES  (100, 'Zel pod prysznic', 1, 1.99, 1,10); 
+INSERT INTO TOWAR VALUES  (101, 'Cif', 2, 2.99, 2, 20 ); 
+INSERT INTO TOWAR VALUES  (102, 'Majtki meskie XXL', 3, 7.99, 3, 5 ); 
+INSERT INTO TOWAR VALUES  (103, 'Ibum', 4, 8.15, 4, 12 ); 
+INSERT INTO TOWAR VALUES  (104, 'Karma dla kota', 5, 9.15, 5, 20 ); 
+INSERT INTO TOWAR VALUES  (105, 'LM Blue', 6, 14.30 , 4, 12 ); 
+
+
+--Pracownik    idP          Imie         Nazwisko    Dzial      Pensja 
+INSERT INTO Pracownik VALUES (1, 'Janusz', 'Nowak', 1, 2000);  
+INSERT INTO Pracownik VALUES (2, 'Andrzej', 'Kowalski', 2, 2000);  
+INSERT INTO Pracownik VALUES (3, 'Piotr', 'Badura', 3, 2000);  
+INSERT INTO Pracownik VALUES (4, 'Iwona', 'Malak', 4, 2000);  
+INSERT INTO Pracownik VALUES (5, 'Joanna', 'Grzyb', 5, 2000);  
+INSERT INTO Pracownik VALUES (6, 'Barbara', 'Stawska', 6, 2000);  
+
+--Transakcja  idTra Towar cena_jednostkowa Ilosc  Suma  Sprzedawca  Opinia 
+INSERT INTO TRANSAKCJA VALUES (100, 100, 1.99, 1, 1.99,1,1);  
+INSERT INTO TRANSAKCJA VALUES (101, 101, 2.99, 1, 2.99,1,1);  
+INSERT INTO TRANSAKCJA VALUES (102, 102, 7.99, 1, 7.99,1,1);  
+INSERT INTO TRANSAKCJA VALUES (103, 103, 8.15, 1, 8.15,1,1);  
+INSERT INTO TRANSAKCJA VALUES (104, 104, 9.15, 1, 9.15,1,1);  
+INSERT INTO TRANSAKCJA VALUES (105, 105, 14.30, 1, 14.30,1,1);  
+
+--Opinia  idO    Ocena   Imie  Nazwisko   Tresc   
+INSERT INTO OPINIA VALUES (1,5,'Janusz','Kowalski','Najlepszy sklep na ');  
+INSERT INTO OPINIA VALUES (2,5,'Piotr','Salapata','Lubie ten sklep');  
+INSERT INTO OPINIA VALUES (3,4,'Kinga','Wawrzyniak','Jest ok');  
+INSERT INTO OPINIA VALUES (4,3,'Bartosz','Galecki','Dlugo stalem w kolejce');  
+INSERT INTO OPINIA VALUES (5,5,'Janina','Woods','Wszystko czego potrzebuje');  
+INSERT INTO OPINIA VALUES (6,1,'Anna','Warchol','Nic nie ma w tym sklepie');  
+
+  
+  
+ALTER TABLE Dzial ADD CONSTRAINT fk_dzial FOREIGN KEY (Kierownik) REFERENCES Pracownik(idP) ;
+ALTER TABLE Towar ADD CONSTRAINT fk_towar FOREIGN KEY (dzial) REFERENCES dzial(idD) ;
+ALTER TABLE Towar ADD CONSTRAINT fk_towar2 FOREIGN KEY (opinia) REFERENCES opinia(idO) ;
+ALTER TABLE Pracownik ADD CONSTRAINT fk_pracownik FOREIGN KEY (dzial) REFERENCES dzial(idD) ;
+ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja FOREIGN KEY (towar) REFERENCES towar(idT);
+ALTER TABLE Transakcja ADD CONSTRAINT fk_transakcja_1 FOREIGN KEY (Sprzedawca) REFERENCES Pracownik(idP);
+
+
+
+
+
 
 
 
