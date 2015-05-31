@@ -138,6 +138,81 @@ then
 end if;
 end;
 
+CREATE OR REPLACE  TRIGGER trigger_pracownik
+BEFORE INSERT OR UPDATE
+  ON PRACOWNIK
+FOR EACH ROW
+BEGIN
+if(inserting)
+then
+INSERT INTO LOG
+VALUES
+(SYSDATE,'dodano nowego pracownika');
+end if;
+if(updating)
+then
+  INSERT INTO LOG
+  VALUES
+  (SYSDATE,'aktualizacja danych pracownika');
+end if;
+end;
+
+CREATE OR REPLACE  TRIGGER trigger_dzial
+BEFORE INSERT OR UPDATE
+  ON dzial
+FOR EACH ROW
+BEGIN
+if(inserting)
+then
+INSERT INTO LOG
+VALUES
+(SYSDATE,'dodano nowy dzial');
+end if;
+if(updating)
+then
+  INSERT INTO LOG
+  VALUES
+  (SYSDATE,'aktualizacja danych dzialu');
+end if;
+end;
+
+CREATE OR REPLACE  TRIGGER trigger_transakcja
+BEFORE INSERT OR UPDATE
+  ON transakcja
+FOR EACH ROW
+BEGIN
+if(inserting)
+then
+INSERT INTO LOG
+VALUES
+(SYSDATE,'dodano nowa transakcje');
+end if;
+if(updating)
+then
+  INSERT INTO LOG
+  VALUES
+  (SYSDATE,'aktualizacja transakcji');
+end if;
+end;
+
+CREATE OR REPLACE  TRIGGER trigger_opinia
+BEFORE INSERT OR UPDATE
+  ON opinia
+FOR EACH ROW
+BEGIN
+if(inserting)
+then
+INSERT INTO LOG
+VALUES
+(SYSDATE,'dodano nowa opinie');
+end if;
+if(updating)
+then
+  INSERT INTO LOG
+  VALUES
+  (SYSDATE,'aktualizacja opinii');
+end if;
+end;
 
 
 
