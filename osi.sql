@@ -16,7 +16,7 @@ DROP TABLE Transakcja CASCADE CONSTRAINTS;
 DROP TABLE Opinia CASCADE CONSTRAINTS; 
 Drop table Log CASCADE CONSTRAINTS;
 
-ALTER TABLE Orders DROP CONSTRAINT fk_PerOrders;
+
 ALTER TABLE Towar DROP CONSTRAINT fk_towar; 
 ALTER TABLE Opinia DROP CONSTRAINT fk_opinia; 
 ALTER TABLE Pracownik DROP CONSTRAINT fk_pracownik; 
@@ -247,7 +247,7 @@ end;
 --select * from log;
 
 
-
+---as
 
 
 
