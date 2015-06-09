@@ -251,6 +251,7 @@ end;
 
 ---as
 Select t.idT as "Numer Towaru",t.nazwa as "Nazwa produktu", o.TRESC as "Tresc Opinii" from Towar t join opinia o on (t.idT=o.idT); 
+Select d.NAZWA, t.nazwa from dzial d join towar t on( d.IDD=t.dzial);
 
 
 
