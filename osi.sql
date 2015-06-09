@@ -119,13 +119,15 @@ INSERT INTO TRANSAKCJA VALUES (103, 103, 8.15, 1, 8.15,1);
 INSERT INTO TRANSAKCJA VALUES (104, 104, 9.15, 1, 9.15,1);  
 INSERT INTO TRANSAKCJA VALUES (105, 105, 14.30, 1, 14.30,1);  
 
---Opinia  idO    Ocena   Imie  Nazwisko   Tresc   
+--Opinia  idO    Ocena   Imie  Nazwisko   Tresc  idT
 INSERT INTO OPINIA VALUES (1,5,'Janusz','Kowalski','Super ¯el',100);  
+
 INSERT INTO OPINIA VALUES (2,5,'Piotr','Salapata','Cif taki jak zawsze',101);  
 INSERT INTO OPINIA VALUES (3,4,'Kinga','Wawrzyniak','Idealne majtki',102);  
 INSERT INTO OPINIA VALUES (4,3,'Bartosz','Galecki','Coœ nie dzialaja te tableki',103);  
 INSERT INTO OPINIA VALUES (5,5,'Janina','Woods','Kotek jest przeszczêsliwy',104);  
 INSERT INTO OPINIA VALUES (6,1,'Anna','Warchol','Drogie te fajki',105);  
+INSERT INTO OPINIA VALUES (7,5,'Andrzej','Piekarski','Super ¯el na moje wlosy',100); 
 
   
   
@@ -248,7 +250,7 @@ end;
 
 
 ---as
-
+Select t.idT as "Numer Towaru",t.nazwa as "Nazwa produktu", o.TRESC as "Tresc Opinii" from Towar t join opinia o on (t.idT=o.idT); 
 
 
 
